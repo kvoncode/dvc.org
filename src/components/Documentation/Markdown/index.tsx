@@ -126,26 +126,28 @@ const Usage: React.FC<{ cmd: string; options?: string }> = ({
   cmd,
   options = ''
 }) => {
-  console.log(options)
+  console.log('raw options: ', options)
   const parsedOptions = JSON.parse(options)
 
-  console.log(parsedOptions)
+  console.log('parsedOptions', parsedOptions)
 
-  const optionsList = parsedOptions.options.map((optionPair: string[]) => {
-    const [text, href] = optionPair
+  const optionsList = parsedOptions.options.map(
+    (optionPair: { text: string; href: string }) => {
+      const { text, href } = optionPair
 
-    console.log(text)
-    if (!href) return <div>{' ' + text}</div>
+      console.log(text)
+      if (!href) return <div>{' ' + text}</div>
 
-    return (
-      <div key={href}>
-        {' '}
-        <Link className={styles.optionLink} href={href}>
-          {text}
-        </Link>
-      </div>
-    )
-  })
+      return (
+        <div key={href}>
+          {' '}
+          <Link className={styles.optionLink} href={href}>
+            {text}
+          </Link>
+        </div>
+      )
+    }
+  )
 
   console.log(optionsList)
 

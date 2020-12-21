@@ -7,7 +7,30 @@ analyzing dependencies and <abbr>outputs</abbr> of the target stages.
 
 ## Synopsis
 
-<usage cmd="dvc repro" options='{ "options": [["[-h]", "#-h"],  ["[-q |","#-q"], ["-v]","#-v"], ["[-f]", "#-f"] ]}'>
+<usage cmd="dvc repro" options='{
+   "options":[
+      {
+         "text":"[-h]",
+         "href":"#-h"
+      },
+      {
+         "text":"[-q |",
+         "href":"#-q"
+      },
+      {
+         "text":"-v]",
+         "href":"#-v"
+      },
+      {
+         "text":"[-f]",
+         "href":"#-f"
+      },
+      {
+         "text":"[-s]",
+         "href":"#-s"
+      }
+   ]
+}'>
 
 </usage>
 
@@ -107,9 +130,11 @@ up-to-date and only execute the final stage.
 changes were found. This executes all of the stages by default, but it can be
 limited with the `targets` argument, or the `-s`, `-p` options.
 
-- `-s`, `--single-item` - reproduce only a single stage by turning off the
-  recursive search for changed dependencies. Multiple stages are executed
-  (non-recursively) if multiple stage names are given as `targets`.
+### `-s`
+
+`-s`, `--single-item` - reproduce only a single stage by turning off the
+recursive search for changed dependencies. Multiple stages are executed
+(non-recursively) if multiple stage names are given as `targets`.
 
 - `-R`, `--recursive` - determines the stages to reproduce by searching each
   target directory and its subdirectories for stages (in `dvc.yaml`) to inspect.
