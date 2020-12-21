@@ -7,7 +7,7 @@ analyzing dependencies and <abbr>outputs</abbr> of the target stages.
 
 ## Synopsis
 
-<usage cmd="dvc repro good" options='{ "options": [["[-h]"],["[-f]", "#-f"]]}'>
+<usage cmd="dvc repro" options='{ "options": [["[-h]", "#-h"],  ["[-q |","#-q"], ["-v]","#-v"], ["[-f]", "#-f"] ]}'>
 
 </usage>
 
@@ -166,14 +166,20 @@ limited with the `targets` argument, or the `-s`, `-p` options.
 
   > Has no effect if combined with `--no-run-cache`.
 
-- `-h`, `--help` - prints the usage/help message, and exit.
+### `-h`
 
-- `-q`, `--quiet` - do not write anything to standard output. Exit with 0 if all
-  stages are up to date or if all stages are successfully executed, otherwise
-  exit with 1. The commands defined in the stage are free to write output
-  regardless of this flag.
+`-h`, `--help` - prints the usage/help message, and exit.
 
-- `-v`, `--verbose` - displays detailed tracing information.
+### `-q`
+
+`-q`, `--quiet` - do not write anything to standard output. Exit with 0 if all
+stages are up to date or if all stages are successfully executed, otherwise exit
+with 1. The commands defined in the stage are free to write output regardless of
+this flag.
+
+### `-v`
+
+`-v`, `--verbose` - displays detailed tracing information.
 
 ## Examples
 
