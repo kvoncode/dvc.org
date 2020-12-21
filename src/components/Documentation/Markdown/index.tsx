@@ -122,12 +122,14 @@ const Card: React.FC<{
   )
 }
 
-const Usage: React.FC<{ cmd: string; options?: string }> = ({
+const Usage: React.FC<{ cmd: string; options?: string; args?: string }> = ({
   cmd,
-  options = ''
+  options = '',
+  args = ''
 }) => {
   // console.log('raw options: ', options)
   const parsedOptions = JSON.parse(options)
+  const parsedArgs = JSON.parse(args)
 
   // console.log('parsedOptions', parsedOptions)
 
@@ -136,7 +138,7 @@ const Usage: React.FC<{ cmd: string; options?: string }> = ({
       const { text, href } = optionPair
 
       // console.log(text)
-      if (!href) return <div>{' ' + text}</div>
+      if (!href) return <div key={href}>{' ' + text}</div>
 
       return (
         <div key={href}>
@@ -151,6 +153,27 @@ const Usage: React.FC<{ cmd: string; options?: string }> = ({
 
   // console.log(optionsList)
 
+  const argsList = parsedArgs.args.map(
+    (argPair: { name: string; description: string }) => {
+      const { name, description } = argPair
+
+      console.log(argPair)
+      console.log(name)
+      console.log(description)
+      return (
+        <div key={name}>
+          <div>
+            <span className="token usage">positional arguments</span>:
+          </div>
+          <span>{'  ' + name}</span>
+          <div className={styles.argDescription}>
+            asdasda sdasd asdasdasdasdasd asd asd asd asd
+          </div>
+        </div>
+      )
+    }
+  )
+
   return (
     <div className="gatsby-highlight" data-language="usage">
       <pre className="language-usage">
@@ -158,13 +181,9 @@ const Usage: React.FC<{ cmd: string; options?: string }> = ({
           <span className="token usage">usage</span>:{' '}
           <span className="token dvc">{cmd}</span>
           <div className={styles.options}>{optionsList}</div>
-          {/* Positional Arguments */}
-          <div>
-            <span className="token usage">positional arguments</span>:
-            <br />
-            targets Stage or path to dvc.yaml or .dvc file to reproduce. Using
-            -R, directories to search for stages can also be given.
-          </div>
+          <br />
+          <br />
+          <div>{argsList}</div>
         </code>
       </pre>
     </div>

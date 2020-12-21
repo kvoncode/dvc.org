@@ -78,6 +78,13 @@ analyzing dependencies and <abbr>outputs</abbr> of the target stages.
          "href":""
       }
    ]
+}' args='{
+   "args":[
+      {
+         "name":"targets",
+         "description":"Stage or path to dvc.yaml or .dvc file to reproduce. Using -R, directories to search for stages can also be given."
+      }
+   ]
 }'>
 
 </usage>
