@@ -7,6 +7,10 @@ analyzing dependencies and <abbr>outputs</abbr> of the target stages.
 
 ## Synopsis
 
+<usage cmd="dvc repro good">
+
+</usage>
+
 ```usage
 usage: dvc repro [-h] [-q | -v] [-f] [-s] [-m] [--dry] [-i]
                  [-p] [-P] [-R] [--no-run-cache] [--force-downstream]

@@ -430,3 +430,8 @@ a.card {
     background-color: var(--color-light-blue);
   }
 }
+
+.options {
+  display: inline-flex;
+  color: red;
+}

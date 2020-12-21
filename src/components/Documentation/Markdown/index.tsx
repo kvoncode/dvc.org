@@ -122,6 +122,35 @@ const Card: React.FC<{
   )
 }
 
+const Usage: React.FC<{ cmd: string }> = ({ cmd }) => {
+  return (
+    <div className="gatsby-highlight" data-language="usage">
+      <pre className="language-usage">
+        <code className="language-usage">
+          <span className="token usage">usage</span>:{' '}
+          <span className="token dvc">{cmd}</span>{' '}
+          <div className={styles.options}>
+            [-h] [-q | -v]
+            <a href="#-f">[-f]</a> <a href="#-s">[-s]</a> [-m]
+            <br />
+            [--dry] [-i] [-p] [-P] [-R] [--no-run-cache] [--force-downstream]
+            <br />
+            [--no-commit] [--downstream] [--pull]
+            <br />
+            [targets [targets ...]]
+            <br />
+            <br />
+          </div>
+          <span className="token usage">positional arguments</span>:
+          <br />
+          targets Stage or path to dvc.yaml or .dvc file to reproduce. Using -R,
+          directories to search for stages can also be given.
+        </code>
+      </pre>
+    </div>
+  )
+}
+
 const renderAst = new rehypeReact({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createElement: React.createElement as any,
@@ -131,7 +160,8 @@ const renderAst = new rehypeReact({
     abbr: Abbr,
     a: Link,
     card: Card,
-    cards: Cards
+    cards: Cards,
+    usage: Usage
   }
 }).Compiler
 
