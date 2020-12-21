@@ -122,29 +122,43 @@ const Card: React.FC<{
   )
 }
 
-const Usage: React.FC<{ cmd: string }> = ({ cmd }) => {
+const Usage: React.FC<{ cmd: string; options?: string }> = ({
+  cmd,
+  options = ''
+}) => {
+  console.log(options)
+  const parsedOptions = JSON.parse(options)
+
+  console.log(parsedOptions)
+
+  const optionsList = parsedOptions.options.map((optionPair: string[]) => {
+    const [text, href] = optionPair
+
+    if (!href) return { text }
+
+    return (
+      <Link className={styles.optionLink} key={href} href={href}>
+        {text}
+      </Link>
+    )
+  })
+
+  console.log(optionsList)
+
   return (
     <div className="gatsby-highlight" data-language="usage">
       <pre className="language-usage">
         <code className="language-usage">
           <span className="token usage">usage</span>:{' '}
           <span className="token dvc">{cmd}</span>{' '}
-          <div className={styles.options}>
-            [-h] [-q | -v]
-            <a href="#-f">[-f]</a> <a href="#-s">[-s]</a> [-m]
+          <div className={styles.options}>{optionsList}</div>
+          {/* Positional Arguments */}
+          <div>
+            <span className="token usage">positional arguments</span>:
             <br />
-            [--dry] [-i] [-p] [-P] [-R] [--no-run-cache] [--force-downstream]
-            <br />
-            [--no-commit] [--downstream] [--pull]
-            <br />
-            [targets [targets ...]]
-            <br />
-            <br />
+            targets Stage or path to dvc.yaml or .dvc file to reproduce. Using
+            -R, directories to search for stages can also be given.
           </div>
-          <span className="token usage">positional arguments</span>:
-          <br />
-          targets Stage or path to dvc.yaml or .dvc file to reproduce. Using -R,
-          directories to search for stages can also be given.
         </code>
       </pre>
     </div>

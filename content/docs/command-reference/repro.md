@@ -7,7 +7,7 @@ analyzing dependencies and <abbr>outputs</abbr> of the target stages.
 
 ## Synopsis
 
-<usage cmd="dvc repro good">
+<usage cmd="dvc repro good" options='{ "options": [["[-f]", "#-f"]]}'>
 
 </usage>
 
@@ -101,9 +101,11 @@ up-to-date and only execute the final stage.
 
 ## Options
 
-- `-f`, `--force` - reproduce a pipeline, regenerating its results, even if no
-  changes were found. This executes all of the stages by default, but it can be
-  limited with the `targets` argument, or the `-s`, `-p` options.
+### `-f`
+
+`-f`, `--force` - reproduce a pipeline, regenerating its results, even if no
+changes were found. This executes all of the stages by default, but it can be
+limited with the `targets` argument, or the `-s`, `-p` options.
 
 - `-s`, `--single-item` - reproduce only a single stage by turning off the
   recursive search for changed dependencies. Multiple stages are executed

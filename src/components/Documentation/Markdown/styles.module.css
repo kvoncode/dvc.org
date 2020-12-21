@@ -433,5 +433,11 @@ a.card {
 
 .options {
   display: inline-flex;
-  color: red;
+  flex-wrap: wrap;
+  max-width: 30em;
+}
+
+.optionLink {
+  background-color: #0000003d;
+  color: rgb(194, 108, 228) !important;
 }
