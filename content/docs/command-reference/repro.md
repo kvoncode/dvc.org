@@ -7,7 +7,7 @@ analyzing dependencies and <abbr>outputs</abbr> of the target stages.
 
 ## Synopsis
 
-<usage cmd="dvc repro good" options='{ "options": [["[-f]", "#-f"]]}'>
+<usage cmd="dvc repro good" options='{ "options": [["[-h]"],["[-f]", "#-f"]]}'>
 
 </usage>
 

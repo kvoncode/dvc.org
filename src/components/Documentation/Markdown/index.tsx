@@ -134,12 +134,16 @@ const Usage: React.FC<{ cmd: string; options?: string }> = ({
   const optionsList = parsedOptions.options.map((optionPair: string[]) => {
     const [text, href] = optionPair
 
-    if (!href) return { text }
+    console.log(text)
+    if (!href) return <div>{' ' + text}</div>
 
     return (
-      <Link className={styles.optionLink} key={href} href={href}>
-        {text}
-      </Link>
+      <div key={href}>
+        {' '}
+        <Link className={styles.optionLink} href={href}>
+          {text}
+        </Link>
+      </div>
     )
   })
 
@@ -150,7 +154,7 @@ const Usage: React.FC<{ cmd: string; options?: string }> = ({
       <pre className="language-usage">
         <code className="language-usage">
           <span className="token usage">usage</span>:{' '}
-          <span className="token dvc">{cmd}</span>{' '}
+          <span className="token dvc">{cmd}</span>
           <div className={styles.options}>{optionsList}</div>
           {/* Positional Arguments */}
           <div>
