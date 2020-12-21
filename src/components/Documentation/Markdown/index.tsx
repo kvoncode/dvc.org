@@ -126,16 +126,16 @@ const Usage: React.FC<{ cmd: string; options?: string }> = ({
   cmd,
   options = ''
 }) => {
-  console.log('raw options: ', options)
+  // console.log('raw options: ', options)
   const parsedOptions = JSON.parse(options)
 
-  console.log('parsedOptions', parsedOptions)
+  // console.log('parsedOptions', parsedOptions)
 
   const optionsList = parsedOptions.options.map(
     (optionPair: { text: string; href: string }) => {
       const { text, href } = optionPair
 
-      console.log(text)
+      // console.log(text)
       if (!href) return <div>{' ' + text}</div>
 
       return (
@@ -149,7 +149,7 @@ const Usage: React.FC<{ cmd: string; options?: string }> = ({
     }
   )
 
-  console.log(optionsList)
+  // console.log(optionsList)
 
   return (
     <div className="gatsby-highlight" data-language="usage">

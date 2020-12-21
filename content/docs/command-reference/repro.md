@@ -28,6 +28,54 @@ analyzing dependencies and <abbr>outputs</abbr> of the target stages.
       {
          "text":"[-s]",
          "href":"#-s"
+      },
+      {
+         "text":"[-m]",
+         "href":"#-m"
+      },
+      {
+         "text":"[--dry]",
+         "href":"#dry"
+      },
+      {
+         "text":"[-i]",
+         "href":"#-i"
+      },
+      {
+         "text":"[-p]",
+         "href":"#-p"
+      },
+      {
+         "text":"[-P]",
+         "href":"#-p-1"
+      },
+      {
+         "text":"[-R]",
+         "href":"#-r"
+      },
+      {
+         "text":"[--no-run-cache]",
+         "href":"#no-run-cache"
+      },
+      {
+         "text":"[--force-downstream]",
+         "href":"#force-downstream"
+      },
+      {
+         "text":"[--no-commit]",
+         "href":"#no-commit"
+      },
+      {
+         "text":"[--downstream]",
+         "href":"#downstream"
+      },
+      {
+         "text":"[--pull]",
+         "href":"#pull"
+      },
+      {
+         "text":"[targets [targets ...]]",
+         "href":""
       }
    ]
 }'>
@@ -124,85 +172,107 @@ up-to-date and only execute the final stage.
 
 ## Options
 
-### `-f`
+### -f
 
 `-f`, `--force` - reproduce a pipeline, regenerating its results, even if no
 changes were found. This executes all of the stages by default, but it can be
 limited with the `targets` argument, or the `-s`, `-p` options.
 
-### `-s`
+### -s
 
 `-s`, `--single-item` - reproduce only a single stage by turning off the
 recursive search for changed dependencies. Multiple stages are executed
 (non-recursively) if multiple stage names are given as `targets`.
 
-- `-R`, `--recursive` - determines the stages to reproduce by searching each
-  target directory and its subdirectories for stages (in `dvc.yaml`) to inspect.
-  If there are no directories among the targets, this option is ignored.
+### -R
 
-- `--no-commit` - do not store the outputs of this execution in the cache
-  (`dvc.yaml` and `dvc.lock` are still created or updated); useful to avoid
-  caching unnecessary data when exploring different data or stages. Use
-  `dvc commit` to finish the operation.
+`-R`, `--recursive` - determines the stages to reproduce by searching each
+target directory and its subdirectories for stages (in `dvc.yaml`) to inspect.
+If there are no directories among the targets, this option is ignored.
 
-- `-m`, `--metrics` - show metrics after reproduction. The target pipelines must
-  have at least one metrics file defined either with the `dvc metrics` command,
-  or by the `-M` or `-m` options of the `dvc run` command.
+### --no-commit
 
-- `--dry` - only print the commands that would be executed without actually
-  executing the commands.
+`--no-commit` - do not store the outputs of this execution in the cache
+(`dvc.yaml` and `dvc.lock` are still created or updated); useful to avoid
+caching unnecessary data when exploring different data or stages. Use
+`dvc commit` to finish the operation.
 
-- `-i`, `--interactive` - ask for confirmation before reproducing each stage.
-  The stage is only executed if the user types "y".
+### -m
 
-- `-p`, `--pipeline` - reproduce the entire pipelines that the `targets` belong
-  to. Use `dvc dag <target>` to show the parent pipeline of a target.
+`-m`, `--metrics` - show metrics after reproduction. The target pipelines must
+have at least one metrics file defined either with the `dvc metrics` command, or
+by the `-M` or `-m` options of the `dvc run` command.
 
-- `-P`, `--all-pipelines` - reproduce all pipelines for all `dvc.yaml` files
-  present in the DVC project.
+### --dry
 
-- `--no-run-cache` - execute stage commands even if they have already been run
-  with the same dependencies/outputs/etc. before.
+`--dry` - only print the commands that would be executed without actually
+executing the commands.
 
-- `--force-downstream` - in cases like `... -> A (changed) -> B -> C` it will
-  reproduce `A` first and then `B`, even if `B` was previously executed with the
-  same inputs from `A` (cached). To be precise, it reproduces all descendants of
-  a changed stage or the stages following the changed stage, even if their
-  direct dependencies did not change.
+### -i
 
-  It can be useful when we have a common dependency among all stages, and want
-  to specify it only once (for stage `A` here). For example, if we know that all
-  stages (`A` and below) depend on `requirements.txt`, we can specify it in `A`,
-  and omit it in `B` and `C`.
+`-i`, `--interactive` - ask for confirmation before reproducing each stage. The
+stage is only executed if the user types "y".
 
-  Like with the `--force` option on `dvc run`, this is a way to force-execute
-  stages without changes. This can also be useful for pipelines containing
-  stages that produce non-deterministic (semi-random) outputs, where outputs can
-  vary on each execution, meaning the cache cannot be trusted for such stages.
+### -p
 
-- `--downstream` - only execute the stages after the given `targets` in their
-  corresponding pipelines, including the target stages themselves. This option
-  has no effect if `targets` are not provided.
+`-p`, `--pipeline` - reproduce the entire pipelines that the `targets` belong
+to. Use `dvc dag <target>` to show the parent pipeline of a target.
 
-- `--pull` - [pulls](/doc/command-reference/pull) dependencies and outputs
-  involved in the stages being reproduced, if they are found in the
-  [default](/doc/command-reference/remote/default) remote storage. Note that it
-  checks the local run-cache too (available history of stage runs).
+### -P
 
-  > Has no effect if combined with `--no-run-cache`.
+`-P`, `--all-pipelines` - reproduce all pipelines for all `dvc.yaml` files
+present in the DVC project.
 
-### `-h`
+### --no-run-cache
+
+`--no-run-cache` - execute stage commands even if they have already been run
+with the same dependencies/outputs/etc. before.
+
+### --force-downstream
+
+`--force-downstream` - in cases like `... -> A (changed) -> B -> C` it will
+reproduce `A` first and then `B`, even if `B` was previously executed with the
+same inputs from `A` (cached). To be precise, it reproduces all descendants of a
+changed stage or the stages following the changed stage, even if their direct
+dependencies did not change.
+
+It can be useful when we have a common dependency among all stages, and want to
+specify it only once (for stage `A` here). For example, if we know that all
+stages (`A` and below) depend on `requirements.txt`, we can specify it in `A`,
+and omit it in `B` and `C`.
+
+Like with the `--force` option on `dvc run`, this is a way to force-execute
+stages without changes. This can also be useful for pipelines containing stages
+that produce non-deterministic (semi-random) outputs, where outputs can vary on
+each execution, meaning the cache cannot be trusted for such stages.
+
+### --downstream
+
+`--downstream` - only execute the stages after the given `targets` in their
+corresponding pipelines, including the target stages themselves. This option has
+no effect if `targets` are not provided.
+
+### --pull
+
+`--pull` - [pulls](/doc/command-reference/pull) dependencies and outputs
+involved in the stages being reproduced, if they are found in the
+[default](/doc/command-reference/remote/default) remote storage. Note that it
+checks the local run-cache too (available history of stage runs).
+
+> Has no effect if combined with `--no-run-cache`.
+
+### -h
 
 `-h`, `--help` - prints the usage/help message, and exit.
 
-### `-q`
+### -q
 
 `-q`, `--quiet` - do not write anything to standard output. Exit with 0 if all
 stages are up to date or if all stages are successfully executed, otherwise exit
 with 1. The commands defined in the stage are free to write output regardless of
 this flag.
 
-### `-v`
+### -v
 
 `-v`, `--verbose` - displays detailed tracing information.
 
