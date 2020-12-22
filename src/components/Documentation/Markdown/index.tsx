@@ -122,6 +122,72 @@ const Card: React.FC<{
   )
 }
 
+const Usage: React.FC<{ cmd: string; options?: string; args?: string }> = ({
+  cmd,
+  options = '',
+  args = ''
+}) => {
+  // console.log('raw options: ', options)
+  const parsedOptions = JSON.parse(options)
+  const parsedArgs = JSON.parse(args)
+
+  // console.log('parsedOptions', parsedOptions)
+
+  const optionsList = parsedOptions.options.map(
+    (optionPair: { text: string; href: string }) => {
+      const { text, href } = optionPair
+
+      // console.log(text)
+      if (!href) return <div key={href}>{' ' + text}</div>
+
+      return (
+        <div key={href}>
+          {' '}
+          <Link className={styles.optionLink} href={href}>
+            {text}
+          </Link>
+        </div>
+      )
+    }
+  )
+
+  // console.log(optionsList)
+
+  const argsList = parsedArgs.args.map(
+    (argPair: { name: string; description: string }) => {
+      const { name, description } = argPair
+
+      console.log(argPair)
+      console.log(name)
+      console.log(description)
+      return (
+        <div key={name}>
+          <div>
+            <span className="token usage">positional arguments</span>:
+          </div>
+          <span className={styles.argName}>{'  ' + name}</span>
+          <div className={styles.argDescription}>{description}</div>
+        </div>
+      )
+    }
+  )
+
+  return (
+    <div className="gatsby-highlight" data-language="usage">
+      <pre className="language-usage">
+        <code className="language-usage">
+          <span className="token usage">usage</span>:{' '}
+          <span className="token dvc">{cmd}</span>
+          <div className={styles.options}>{optionsList}</div>
+          <br />
+          <br />
+          <div>{argsList}</div>
+        </code>
+      </pre>
+    </div>
+  )
+}
+
 const renderAst = new rehypeReact({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createElement: React.createElement as any,
@@ -131,7 +197,8 @@ const renderAst = new rehypeReact({
     abbr: Abbr,
     a: Link,
     card: Card,
-    cards: Cards
+    cards: Cards,
+    usage: Usage
   }
 }).Compiler
 

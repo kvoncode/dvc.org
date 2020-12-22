@@ -430,3 +430,35 @@ a.card {
     background-color: var(--color-light-blue);
   }
 }
+
+.options {
+  display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 30em;
+}
+
+.optionLink {
+  color: rgb(194, 108, 228) !important;
+  border-radius: 4px;
+  padding: 2px;
+  transition: all 0.2s ease-out;
+
+  &:hover {
+    text-decoration: none !important;
+    color: white !important;
+    background-color: rgb(194, 108, 228);
+  }
+}
+
+.argName {
+  display: inline-flex;
+  min-width: 10em;
+  max-width: 20em;
+}
+
+.argDescription {
+  width: 30em;
+  display: inline-flex;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
