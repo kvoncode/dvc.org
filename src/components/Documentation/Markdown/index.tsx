@@ -165,7 +165,7 @@ const Usage: React.FC<{ cmd: string; options?: string; args?: string }> = ({
           <div>
             <span className="token usage">positional arguments</span>:
           </div>
-          <span>{'  ' + name}</span>
+          <span className={styles.argName}>{'  ' + name}</span>
           <div className={styles.argDescription}>{description}</div>
         </div>
       )

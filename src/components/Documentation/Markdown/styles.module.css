@@ -439,10 +439,24 @@ a.card {
 
 .optionLink {
   color: rgb(194, 108, 228) !important;
+  border-radius: 4px;
+  padding: 2px;
+  transition: all 0.2s ease-out;
+
+  &:hover {
+    text-decoration: none !important;
+    color: white !important;
+    background-color: rgb(194, 108, 228);
+  }
+}
+
+.argName {
+  display: inline-flex;
+  min-width: 10em;
+  max-width: 20em;
 }
 
 .argDescription {
-  border: 1px dashed black;
   width: 30em;
   display: inline-flex;
   white-space: normal;
